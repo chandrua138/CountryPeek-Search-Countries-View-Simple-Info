@@ -2,15 +2,30 @@
 
 CountryPeek is a React application for searching countries, browsing quick information, and exploring country details.
 
-## Part 1
+## Live Demo
+https://chandrua138.github.io/CountryPeek-Search-Countries-View-Simple-Info/
 
-This part sets up the app shell with:
-- a reusable header and navigation
-- a Home page with a controlled search input
-- route handling for the main pages and a 404 page
-- base styling for the layout
+## Features
+- Search countries by name
+- Filter by region and sort by name or population
+- View full country details, including languages, currencies, and borders
+- Toggle between light and dark mode
+- Save favourite countries with persistent local storage
 
-## Scripts
+## Tech Stack
+- React
+- Vite
+- React Router
+- CSS Custom Properties
+- REST Countries API
 
-- `npm run dev` — start the development server
-- `npm run build` — build the app for production
+## Run Locally
+```bash
+npm install
+npm run dev
+```
+
+## Build
+```bash
+npm run build
+```
