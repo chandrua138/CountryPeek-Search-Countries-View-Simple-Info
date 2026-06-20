@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: #2563eb;
+  color: #fff;
+}
+
+.header__brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.header__nav {
+  display: flex;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.home {
+  padding: 2rem 1.5rem;
+}
+
+.search-bar {
+  padding-top: 0.5rem;
+}
+
+.search-bar__input {
+  width: 100%;
+  max-width: 480px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  font-size: 1rem;
+}
+
+.home__placeholder {
+  margin-top: 1rem;
+  color: #64748b;
+}
+
+.not-found {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.not-found a {
+  color: #2563eb;
+  font-weight: 600;
+}
