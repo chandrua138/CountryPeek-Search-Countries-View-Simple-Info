@@ -7,29 +7,50 @@ function CountryPage() {
   const { country, loading, error } = useCountry(code)
 
   if (loading) {
-    return <p className="page-status">Loading...</p>
+    return <p className="page-status">Loading country details...</p>
   }
 
-  if (error) {
-    return <p className="page-status page-status--error">{error}</p>
+  if (error || !country) {
+    return (
+      <p className="page-status page-status--error">
+        {error || 'Country not found.'}
+      </p>
+    )
   }
 
-  if (!country) {
-    return null
-  }
-
-  const { name, flags, population, region, subregion, capital, languages, currencies, borders } = country
+  const {
+    name,
+    flags,
+    population,
+    region,
+    subregion,
+    capital,
+    languages,
+    currencies,
+    borders,
+  } = country
   const languageNames = languages ? Object.values(languages) : []
-  const currencyNames = currencies ? Object.values(currencies).map((currency) => currency.name) : []
+  const currencyNames = currencies
+    ? Object.values(currencies).map((currency) => currency.name)
+    : []
 
   return (
-    <div className="country-page">
-      <button type="button" className="back-btn" onClick={() => navigate(-1)}>
+    <section className="country-page">
+      <button
+        type="button"
+        className="back-btn"
+        onClick={() => navigate(-1)}
+        aria-label="Go back to the previous page"
+      >
         ← Back
       </button>
 
       <div className="country-page__layout">
-        <img src={flags.svg} alt={`${name.common} flag`} className="country-page__flag" />
+        <img
+          src={flags.svg || flags.png}
+          alt={`Flag of ${name.common}`}
+          className="country-page__flag"
+        />
 
         <div className="country-page__info">
           <h2 className="country-page__name">{name.common}</h2>
@@ -37,18 +58,30 @@ function CountryPage() {
 
           <div className="country-page__details">
             <div>
-              <p><span>Population:</span> {population.toLocaleString()}</p>
-              <p><span>Region:</span> {region}</p>
-              <p><span>Subregion:</span> {subregion || 'N/A'}</p>
-              <p><span>Capital:</span> {capital?.[0] || 'N/A'}</p>
+              <p>
+                <span>Population:</span> {population?.toLocaleString() || 'N/A'}
+              </p>
+              <p>
+                <span>Region:</span> {region || 'N/A'}
+              </p>
+              <p>
+                <span>Subregion:</span> {subregion || 'N/A'}
+              </p>
+              <p>
+                <span>Capital:</span> {capital?.[0] || 'N/A'}
+              </p>
             </div>
             <div>
-              <p><span>Languages:</span> {languageNames.join(', ')}</p>
-              <p><span>Currencies:</span> {currencyNames.join(', ')}</p>
+              <p>
+                <span>Languages:</span> {languageNames.join(', ') || 'N/A'}
+              </p>
+              <p>
+                <span>Currencies:</span> {currencyNames.join(', ') || 'N/A'}
+              </p>
             </div>
           </div>
 
-          {borders && borders.length > 0 && (
+          {Array.isArray(borders) && borders.length > 0 && (
             <div>
               <h3>Border Countries</h3>
               <div className="border-list">
@@ -62,7 +95,7 @@ function CountryPage() {
           )}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

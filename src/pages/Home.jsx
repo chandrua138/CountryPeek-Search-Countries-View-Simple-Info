@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import SearchBar from '../components/SearchBar'
 import CountryCard from '../components/CountryCard'
 import FilterBar from '../components/FilterBar'
@@ -12,7 +12,9 @@ function Home() {
   const [sortBy, setSortBy] = useState('')
 
   useEffect(() => {
-    if (!query.trim()) {
+    const trimmedQuery = query.trim()
+
+    if (!trimmedQuery) {
       setCountries([])
       setError(null)
       return
@@ -20,7 +22,7 @@ function Home() {
 
     const timer = setTimeout(() => {
       setLoading(true)
-      fetch(`https://restcountries.com/v3.1/name/${query}`)
+      fetch(`https://restcountries.com/v3.1/name/${trimmedQuery}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error('No countries found.')
@@ -28,7 +30,7 @@ function Home() {
           return res.json()
         })
         .then((data) => {
-          setCountries(data)
+          setCountries(Array.isArray(data) ? data : [])
           setError(null)
         })
         .catch(() => {
@@ -43,9 +45,12 @@ function Home() {
     return () => clearTimeout(timer)
   }, [query])
 
-  const displayed = [...countries]
-    .filter((country) => region === 'All' || country.region === region)
-    .sort((a, b) => {
+  const displayed = useMemo(() => {
+    const filtered = [...countries].filter(
+      (country) => region === 'All' || country.region === region,
+    )
+
+    return filtered.sort((a, b) => {
       if (sortBy === 'name') {
         return a.name.common.localeCompare(b.name.common)
       }
@@ -54,6 +59,9 @@ function Home() {
       }
       return 0
     })
+  }, [countries, region, sortBy])
+
+  const hasSearch = query.trim().length > 0
 
   return (
     <div className="home">
@@ -68,7 +76,11 @@ function Home() {
       {loading && <p className="home__status">Loading...</p>}
       {error && <p className="home__status home__status--error">{error}</p>}
 
-      {!loading && !error && countries.length > 0 && (
+      {!loading && !error && hasSearch && displayed.length === 0 && (
+        <p className="home__status">No countries match this region.</p>
+      )}
+
+      {!loading && !error && displayed.length > 0 && (
         <div className="cards-grid">
           {displayed.map((country) => (
             <CountryCard key={country.cca3} country={country} />
@@ -76,7 +88,7 @@ function Home() {
         </div>
       )}
 
-      {!loading && !error && countries.length === 0 && !query && (
+      {!loading && !error && !hasSearch && (
         <p className="home__status">Start searching to explore countries.</p>
       )}
     </div>

@@ -1,7 +1,11 @@
 function FilterBar({ region, onRegionChange, sortBy, onSortChange }) {
   return (
     <div className="filter-bar">
-      <select value={region} onChange={(e) => onRegionChange(e.target.value)}>
+      <select
+        value={region}
+        onChange={(e) => onRegionChange(e.target.value)}
+        aria-label="Filter countries by region"
+      >
         <option value="All">All</option>
         <option value="Africa">Africa</option>
         <option value="Americas">Americas</option>
@@ -10,7 +14,11 @@ function FilterBar({ region, onRegionChange, sortBy, onSortChange }) {
         <option value="Oceania">Oceania</option>
       </select>
 
-      <select value={sortBy} onChange={(e) => onSortChange(e.target.value)}>
+      <select
+        value={sortBy}
+        onChange={(e) => onSortChange(e.target.value)}
+        aria-label="Sort countries"
+      >
         <option value="">Default</option>
         <option value="name">Name (A–Z)</option>
         <option value="population">Population (High–Low)</option>
