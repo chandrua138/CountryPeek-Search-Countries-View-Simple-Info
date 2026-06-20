@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  background: #2563eb;
-  color: #fff;
+  background: var(--header-bg);
+  color: var(--header-text);
 }
 
 .header__brand {
@@ -14,6 +14,7 @@
 
 .header__nav {
   display: flex;
+  align-items: center;
   gap: 1rem;
   font-weight: 600;
 }
@@ -30,9 +31,36 @@
   width: 100%;
   max-width: 480px;
   padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--input-border);
   border-radius: 999px;
   font-size: 1rem;
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.filter-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.filter-bar select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--header-text);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  color: var(--header-text);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .cards-grid {
@@ -44,7 +72,7 @@
 
 .card {
   display: block;
-  background: #fff;
+  background: var(--card-bg);
   color: inherit;
   border-radius: 0.75rem;
   overflow: hidden;
@@ -70,23 +98,23 @@
 .card__name {
   margin: 0 0 0.6rem;
   font-size: 1.1rem;
-  color: #0f172a;
+  color: var(--text);
 }
 
 .card__body p {
   margin: 0.35rem 0;
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .card__body p span {
-  color: #0f172a;
+  color: var(--text);
   font-weight: 600;
 }
 
 .home__status {
   margin-top: 1rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .home__status--error {
@@ -100,13 +128,13 @@
 }
 
 .back-btn {
-  background: #fff;
-  border: 1px solid #cbd5e1;
+  background: var(--card-bg);
+  border: 1px solid var(--input-border);
   border-radius: 999px;
   padding: 0.6rem 1rem;
   cursor: pointer;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text);
 }
 
 .country-page__layout {
@@ -126,11 +154,11 @@
 .country-page__name {
   margin: 0;
   font-size: 2rem;
-  color: #0f172a;
+  color: var(--text);
 }
 
 .country-page__official {
-  color: #64748b;
+  color: var(--muted);
   margin: 0.4rem 0 1rem;
 }
 
@@ -142,12 +170,12 @@
 
 .country-page__details p {
   margin: 0.5rem 0;
-  color: #334155;
+  color: var(--text);
 }
 
 .country-page__details p span {
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
 }
 
 .border-list {
@@ -160,15 +188,16 @@
 .border-badge {
   display: inline-block;
   padding: 0.3rem 0.6rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--input-border);
   border-radius: 999px;
   font-size: 0.85rem;
-  color: #0f172a;
+  color: var(--text);
+  background: var(--card-bg);
 }
 
 .page-status {
   padding: 2rem 1.5rem;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .page-status--error {
@@ -187,7 +216,12 @@
 
 @media (max-width: 768px) {
   .country-page__layout,
-  .country-page__details {
+  .country-page__details,
+  .filter-bar {
     grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    display: grid;
   }
 }
